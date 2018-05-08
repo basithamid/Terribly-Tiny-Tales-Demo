@@ -18,7 +18,7 @@ export class InputFormComponent implements OnInit {
     
   onSubmit(){
     console.log("input value:", this.input.inputNumber )
-    this._wordService.getWords()
+    this._wordService.getWords(this.input.inputNumber)
       .subscribe(data=> {this.fileContent = data['data']
                         console.log("The file content is:", this.fileContent)
                         console.log(typeof(this.fileContent))},
