@@ -30,6 +30,8 @@ def fetch_file():
 def printDict(di):
   for key, value in di.items():
     print(key+":"+ str(value))
+
+
 def wordFrequencyCount(content):
   wordDict = {}
   wordCharList = []
@@ -47,12 +49,16 @@ def wordFrequencyCount(content):
 
 
 def sortDictAndReturnN(wordDict, input):
-  sortedList = dict([(key, value) for (key, value) in sorted(wordDict.items(), key=itemgetter(1), reverse=True)])
+  sortedDict = dict([(key, value) for (key, value) in sorted(wordDict.items(), key=itemgetter(1), reverse=True)])
   iteration = 0
-  for key, value in wordDict.items():
+  newDict = {}
+  for key, value in sortedDict.items():
     if iteration == input:
       break
-  return sortedList
+    else:
+      newDict[key] = value
+      iteration += 1
+  return newDict
 
 
 
