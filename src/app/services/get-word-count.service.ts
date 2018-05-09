@@ -10,7 +10,6 @@ export class WordCountService {
     constructor(private _http: HttpClient){}
 
     getWords(inputNumber: number): Observable<string>{
-        console.log('Hello')
         return this._http.get<string>(this._fileURL+"?number="+inputNumber);
     }
 
