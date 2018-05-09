@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { InputFormComponent } from './input-form/input-form.component';
+import { WordsTableComponent } from './words-table/words-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InputFormComponent
+    InputFormComponent,
+    WordsTableComponent
   ],
   imports: [
     BrowserModule,
