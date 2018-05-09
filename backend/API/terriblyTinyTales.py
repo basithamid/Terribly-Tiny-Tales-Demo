@@ -2,6 +2,7 @@ from flask import Flask, request
 from ErrorCodes import codes
 from flask_cors import CORS
 from operator import itemgetter
+from collections import OrderedDict
 import urllib
 import json
 
@@ -15,15 +16,16 @@ def fetch_file():
     return codes.invalidRequestMethod()
   elif request.method == 'GET':
     arg = request.args['number']
+    print("arg:",arg)
     req = urllib.request.urlopen('http://www.terriblytinytales.com/test.txt')
     content = str(req.read().decode('utf-8'))
     wordDictionary = wordFrequencyCount(content)
+
     # remove entries with key = ""
     wordDictionary.__delitem__('')
-    wordDictionary = sortDictAndReturnN(wordDictionary, arg)
 
-    printDict(wordDictionary)
-    return json.dumps({"success":"true", "data": wordDictionary})
+    od = sortDictAndReturnN(wordDictionary, int(arg))
+    return json.dumps({"success":"true", "data": od})
 
 
 
@@ -36,7 +38,7 @@ def wordFrequencyCount(content):
   wordDict = {}
   wordCharList = []
   for ch in content:
-    if ch == ' ' or ch == '?' or ch == '-' or ch == '_' or ch == "\n" or ch == '/' or ch == '(' or ch == ')' or ch == ':' or ch == ',' or ch == '.' or ch == '"' or ch == '@' or ch == '>':
+    if ch == ' ' or ch == '?' or ch == '-' or ch == '\t' or ch == '_' or ch == "\n" or ch == '/' or ch == '(' or ch == ')' or ch == ':' or ch == ',' or ch == '.' or ch == '"' or ch == '@' or ch == '>':
       word = str.join("",wordCharList)
       wordCharList.clear()
       if word in wordDict:
@@ -50,15 +52,18 @@ def wordFrequencyCount(content):
 
 def sortDictAndReturnN(wordDict, input):
   sortedDict = dict([(key, value) for (key, value) in sorted(wordDict.items(), key=itemgetter(1), reverse=True)])
+  od = OrderedDict()
   iteration = 0
   newDict = {}
   for key, value in sortedDict.items():
     if iteration == input:
       break
     else:
-      newDict[key] = value
+      # newDict[key] = value
       iteration += 1
-  return newDict
+      od[key] = value
+  print(od)
+  return od
 
 
 
