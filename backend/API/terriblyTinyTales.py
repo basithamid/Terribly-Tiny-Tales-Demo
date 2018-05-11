@@ -24,8 +24,9 @@ def fetch_file():
     # remove entries with key = ""
     wordDictionary.__delitem__('')
 
-    od = sortDictAndReturnN(wordDictionary, int(arg))
-    return json.dumps({"success":"true", "data": od})
+    wordList = sortDictAndReturnN(wordDictionary, int(arg))
+    print(wordList)
+    return json.dumps({"success":"true", "data": wordList})
 
 
 
@@ -54,16 +55,16 @@ def sortDictAndReturnN(wordDict, input):
   sortedDict = dict([(key, value) for (key, value) in sorted(wordDict.items(), key=itemgetter(1), reverse=True)])
   od = OrderedDict()
   iteration = 0
-  newDict = {}
+  sortedTupList = []
   for key, value in sortedDict.items():
     if iteration == input:
       break
     else:
-      # newDict[key] = value
+      sortedTupList.append((key,value))
       iteration += 1
-      od[key] = value
-  print(od)
-  return od
+
+  print(sortedTupList)
+  return sortedTupList
 
 
 

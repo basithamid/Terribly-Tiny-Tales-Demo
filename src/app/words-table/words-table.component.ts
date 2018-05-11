@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { WordCountService } from 'src/app/services/get-word-count.service';
 
 @Component({
   selector: 'words-table',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WordsTableComponent implements OnInit {
 
-  constructor() { }
+  @Input() tableWords: Object;
+
+ constructor(private _wordService: WordCountService) { }
 
   ngOnInit() {
   }
+
+  ngOnChanges() {
+    console.log("Table component data:", this.tableWords)
+  }
+
+
 
 }

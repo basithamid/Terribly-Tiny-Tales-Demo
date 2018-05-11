@@ -1,13 +1,16 @@
 
 <br>
-<div class="col-md-6">
+<div *ngIf="tableWords"class="col-md-6">
   <table id="wordTable" border=1 class="table">
       <tbody>
         <tr class="info">
           <th>Word</th>
           <th>Frequency</th>
         </tr>
-        <tr *ngFor=""></tr>
+        <tr *ngFor='let word of tableWords'>
+          <td>{{ word[0] }}</td>
+          <td>{{ word[1] }}</td>
+        </tr>
       </tbody>
     </table>
       
