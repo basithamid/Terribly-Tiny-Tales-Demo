@@ -2,7 +2,6 @@ from flask import Flask, request
 from ErrorCodes import codes
 from flask_cors import CORS
 from operator import itemgetter
-from collections import OrderedDict
 import urllib
 import json
 
@@ -16,23 +15,17 @@ def fetch_file():
     return codes.invalidRequestMethod()
   elif request.method == 'GET':
     arg = request.args['number']
-    print("arg:",arg)
     req = urllib.request.urlopen('http://www.terriblytinytales.com/test.txt')
     content = str(req.read().decode('utf-8'))
     wordDictionary = wordFrequencyCount(content)
 
     # remove entries with key = ""
     wordDictionary.__delitem__('')
-
     wordList = sortDictAndReturnN(wordDictionary, int(arg))
-    print(wordList)
     return json.dumps({"success":"true", "data": wordList})
 
 
 
-def printDict(di):
-  for key, value in di.items():
-    print(key+":"+ str(value))
 
 
 def wordFrequencyCount(content):
@@ -53,7 +46,6 @@ def wordFrequencyCount(content):
 
 def sortDictAndReturnN(wordDict, input):
   sortedDict = dict([(key, value) for (key, value) in sorted(wordDict.items(), key=itemgetter(1), reverse=True)])
-  od = OrderedDict()
   iteration = 0
   sortedTupList = []
   for key, value in sortedDict.items():

@@ -7,12 +7,15 @@
       <input type="number" class="form-control" id="num" 
         required
         [(ngModel)]="input.inputNumber" name="num"
+        invalidInput
         #name="ngModel">
+      
       <div [hidden]="name.valid || name.pristine"
         class="alert alert-danger">
-        Input Value is required
+        Correct input value is required
       </div>
+      
     </div>
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button [disabled] = !inputForm.valid type="submit" class="btn btn-success">Submit</button>
   </form>
 </div>

@@ -12,8 +12,7 @@ export class AppComponent {
   @Input() passWords: Object;
   
   onSubmitClicked(words: Object): void {
-    console.log("Words in App Component:", words)
     this.passWords = words;
-    
+
   } 
 }

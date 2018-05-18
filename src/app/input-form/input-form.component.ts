@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Input } from '../input'
 import { WordCountService } from 'src/app/services/get-word-count.service';
+import{ ForbiddenInputDirective } from 'src/app/shared/invalid-value.directive';
 
 
 @Component({
@@ -12,6 +13,7 @@ export class InputFormComponent implements OnInit {
 
   wordFrequency: string;
   errorMessage: string;
+ 
   constructor(private _wordService: WordCountService){}
 
   num: number;
@@ -21,10 +23,9 @@ export class InputFormComponent implements OnInit {
   dictData:any;
 
   onSubmit(){
-    console.log("input value:", this.input.inputNumber )
     this._wordService.getWords(this.input.inputNumber)
       .subscribe(data=> {this.wordFrequency = data['data']
-                        console.log("The file content is:", this.wordFrequency)
+                        console.log(this.wordFrequency)
                         this.submitClicked.emit(this.wordFrequency)},
                 error => this.errorMessage = <any>error)
   }
@@ -32,5 +33,7 @@ export class InputFormComponent implements OnInit {
  
   ngOnInit() {
   }
+
+  
 
 }
